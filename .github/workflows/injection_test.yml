@@ -9,4 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Log Issue Title (VULNERABLE)
-        run: echo "New issue title is: ${{ github.event.issue.title }}"
+        # The pipe symbol ensures YAML doesn't choke on the quotes or brackets below
+        run: |
+          echo "New issue title is: ${{ github.event.issue.title }}"
