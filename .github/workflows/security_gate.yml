@@ -1,0 +1,21 @@
+name: Forbidden File Gatekeeper
+
+on: [push]
+
+jobs:
+  gatekeeper-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # The Security Gate: Exit 1 forces the pipeline to crash if the file is found
+      - name: Check for passwords.txt
+        run: |
+          if [ -f passwords.txt ]; then
+            echo "❌ CRITICAL SECURITY VIOLATION: passwords.txt detected in repository!"
+            exit 1
+          else
+            echo "✅ Security scan passed: No forbidden files found."
+            exit 0
+          fi
