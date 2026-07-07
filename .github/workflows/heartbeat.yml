@@ -1,0 +1,18 @@
+name: Integrity Heartbeat
+
+# 1. Trigger the workflow on any push event
+on: [push]
+
+jobs:
+  heartbeat-job:
+    # 2. Run on an Ubuntu Linux runner
+    runs-on: ubuntu-latest
+
+    steps:
+      # 3. Use the checkout action to pull your repository code onto the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 4. Run the required shell command to print the verification message
+      - name: Verify Pipeline Integrity
+        run: echo "Pipeline Integrity Verified - Monitoring Active"
