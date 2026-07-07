@@ -8,7 +8,10 @@ jobs:
   untrusted-input-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Log Issue Title (VULNERABLE)
-        # The pipe symbol ensures YAML doesn't choke on the quotes or brackets below
-        run: |
-          echo "New issue title is: ${{ github.event.issue.title }}"
+      - name: Log Issue Title (SECURE)
+        # 1. Safely assign the untrusted data directly to the runner's memory space
+        env:
+          THE_ISSUE_TITLE: ${{ github.event.issue.title }}
+
+        # 2. Reference it as a literal shell variable, NOT using expression brackets
+        run: echo "New issue title is: $THE_ISSUE_TITLE"
